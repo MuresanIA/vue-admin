@@ -29,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/users/create',
         name: 'UserCreate',
         component: () => import('@/pages/users/UserCreate.vue')
+      },
+      {
+        path: '/users/:id/edit',
+        name: 'UserEdit',
+        component: () => import('@/pages/users/UserEdit.vue')
       }
     ],
     component: () => import('@/pages/Wrapper.vue')
