@@ -34,6 +34,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/users/:id/edit',
         name: 'UserEdit',
         component: () => import('@/pages/users/UserEdit.vue')
+      },
+      {
+        path: '/roles',
+        name: 'Roles',
+        component: () => import('@/pages/roles/Roles.vue')
       }
     ],
     component: () => import('@/pages/Wrapper.vue')
