@@ -40,10 +40,9 @@ export default {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { push } = useRouter();
-
     const formData = reactive({
       name: "",
-      permissions: [],
+      permissions: [] as number[],
     });
 
     const permissionList = ref([]);
