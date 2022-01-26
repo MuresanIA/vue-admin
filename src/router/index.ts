@@ -44,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/roles/create',
         name: 'RoleCreate',
         component: () => import('@/pages/roles/RoleCreate.vue')
+      },
+      {
+        path: '/roles/:id/edit',
+        name: 'RoleEdit',
+        component: () => import('@/pages/roles/RoleEdit.vue')
       }
     ],
     component: () => import('@/pages/Wrapper.vue')
