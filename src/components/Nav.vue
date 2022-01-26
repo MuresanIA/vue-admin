@@ -8,7 +8,7 @@
       <!-- <router-link to="/profile" class="p-2 text-white">{{
         user
       }}</router-link> -->
-      <router-link to="/login" class="p-2 text-white" href="javascript:void(0)" @click="logout"
+      <router-link :to="{name: 'Login'}" class="p-2 text-white" href="javascript:void(0)" @click="logout"
         >Sign out</router-link
       >
     </nav>

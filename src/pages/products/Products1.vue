@@ -1,4 +1,9 @@
 <template>
+  <div class="pt-3 pb-2 mb-3 border-bottom">
+    <router-link :to="{name: 'ProductCreate'}" class="btn btn-sm btn-outline-secondary"
+      >Add</router-link
+    >
+  </div>
   <div class="table-responsive">
     <table class="table table-striped table-sm">
       <thead>
@@ -35,19 +40,19 @@
     </table>
   </div>
 
-  <Paginator :lastPage="lastPage" @page-changed="load($event)"/>
+  <Paginator :lastPage="lastPage" @page-changed="load($event)" />
 </template>
 
 <script lang="ts">
 import axios from "axios";
 import { ref } from "@vue/reactivity";
 import { Product } from "@/models/product";
-import { onMounted, watch } from "vue";
+import { onMounted } from "vue";
 import Paginator from "@/components/Paginator.vue";
 export default {
   name: "Products",
   components: { Paginator },
- 
+
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const products = ref([]);

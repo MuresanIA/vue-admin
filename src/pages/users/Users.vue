@@ -1,6 +1,6 @@
 <template>
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <router-link to="/users/create" class="btn btn-sm btn-outline-secondary"
+    <router-link :to="{name: 'UserCreate'}" class="btn btn-sm btn-outline-secondary"
       >Add</router-link
     >
   </div>
