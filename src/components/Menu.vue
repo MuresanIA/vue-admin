@@ -6,13 +6,40 @@
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <router-link class="nav-link" active-class="active" to="/"> Dashboard </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Dashboard' }"
+          >
+            Dashboard
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" active-class="active" to="/users"> Users </router-link>
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Users' }"
+          >
+            Users
+          </router-link>
         </li>
-         <li class="nav-item">
-          <router-link class="nav-link" active-class="active" to="/roles"> Roles </router-link>
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Roles' }"
+          >
+            Roles
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link
+            class="nav-link"
+            active-class="active"
+            :to="{ name: 'Products1' }"
+          >
+            Products
+          </router-link>
         </li>
       </ul>
     </div>

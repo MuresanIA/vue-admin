@@ -49,7 +49,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/roles/:id/edit',
         name: 'RoleEdit',
         component: () => import('@/pages/roles/RoleEdit.vue')
-      }
+      },
+      {
+        path: '/products',
+        name: 'Products1',
+        component: () => import('@/pages/products/Products1.vue')
+      },
     ],
     component: () => import('@/pages/Wrapper.vue')
   },
