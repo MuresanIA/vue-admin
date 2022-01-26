@@ -35,16 +35,7 @@
     </table>
   </div>
 
-  <nav>
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" @click="prev">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" @click="next">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <Paginator :lastPage="lastPage" @page-changed="load($event)"/>
 </template>
 
 <script lang="ts">
@@ -52,13 +43,16 @@ import axios from "axios";
 import { ref } from "@vue/reactivity";
 import { Product } from "@/models/product";
 import { onMounted, watch } from "vue";
+import Paginator from "@/components/Paginator.vue";
 export default {
   name: "Products",
+  components: { Paginator },
+ 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const products = ref([]);
-    const page = ref(1);
     const lastPage = ref(0);
+
     const deleteProduct = async (id: number) => {
       try {
         if (confirm("Are you sure?")) {
@@ -71,9 +65,9 @@ export default {
         console.log(e);
       }
     };
-    const load = async () => {
+    const load = async (page = 1) => {
       try {
-        const { data } = await axios.get(`products?page=${page.value}`);
+        const { data } = await axios.get(`products?page=${page}`);
         products.value = data.data;
         lastPage.value = data.meta.last_page;
       } catch (e) {
@@ -81,22 +75,8 @@ export default {
       }
     };
 
-    const next = () => {
-      if (page.value < lastPage.value) {
-        page.value++;
-      }
-    };
-
-    const prev = () => {
-      if (page.value > 1) {
-        page.value--;
-      }
-    };
-
-    watch(page, load);
-
     onMounted(load);
-    return { products, deleteProduct, next, prev, page, lastPage };
+    return { products, deleteProduct, lastPage, load };
   },
 };
 </script>

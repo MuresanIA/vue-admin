@@ -1,6 +1,8 @@
 <template>
   <div class="pt-3 pb-2 mb-3 border-bottom">
-    <router-link to="/users/create" class="btn btn-sm btn-outline-secondary">Add</router-link>
+    <router-link to="/users/create" class="btn btn-sm btn-outline-secondary"
+      >Add</router-link
+    >
   </div>
   <h2>Users</h2>
   <div class="table-responsive">
@@ -22,42 +24,41 @@
           <td>{{ user.role.name }}</td>
           <td>
             <div class="btn-group mr-2">
-              <router-link :to="`/users/${user.id}/edit`" class="btn btn-sm btn-outline-secondary" @click="update(user.id)">Edit</router-link>
-              <a class="btn btn-sm btn-outline-secondary" @click="del(user.id)">Delete</a>
+              <router-link
+                :to="`/users/${user.id}/edit`"
+                class="btn btn-sm btn-outline-secondary"
+                @click="update(user.id)"
+                >Edit</router-link
+              >
+              <a class="btn btn-sm btn-outline-secondary" @click="del(user.id)"
+                >Delete</a
+              >
             </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <nav>
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" @click="prev">Previous</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" @click="next">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <Paginator :lastPage="lastPage" @page-changed="load($event)" />
 </template>
 
 <script lang='ts'>
 import { onMounted } from "@vue/runtime-core";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import axios from "axios";
 import { User } from "@/models/user";
+import Paginator from "@/components/Paginator.vue";
 export default {
   name: "Users",
+  components: { Paginator },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const users = ref([]);
-    const page = ref(1);
     const lastPage = ref(0);
 
-    const load = async () => {
+    const load = async (page = 1) => {
       try {
-        const { data } = await axios.get(`users?page=${page.value}`);
+        const { data } = await axios.get(`users?page=${page}`);
         users.value = data.data;
         lastPage.value = data.meta.last_page;
       } catch (error) {
@@ -78,21 +79,7 @@ export default {
 
     onMounted(load);
 
-    watch(page, load);
-
-    const next = () => {
-      if (page.value < lastPage.value) {
-        page.value++;
-      }
-    };
-
-    const prev = () => {
-      if (page.value > 1) {
-        page.value--;
-      }
-    };
-
-    return { del, users, prev, next, page, load, lastPage };
+    return { del, users, load, lastPage };
   },
 };
 </script>
