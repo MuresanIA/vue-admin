@@ -1,83 +1,49 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
+import Register from '@/public/Register.vue';
+import Login from '@/public/Login.vue';
+import Secure from '@/secure/Secure.vue';
+import Dashboard from '@/secure/dashboard/Dashboard.vue';
+import Users from '@/secure/users/Users.vue';
+import UsersCreate from '@/secure/users/UsersCreate.vue';
+import UsersEdit from '@/secure/users/UsersEdit.vue';
+import Roles from "@/secure/roles/Roles.vue";
+import RolesCreate from "@/secure/roles/RolesCreate.vue";
+import RolesEdit from "@/secure/roles/RolesEdit.vue";
+import Products from "@/secure/products/Products.vue";
+import ProductsCreate from "@/secure/products/ProductsCreate.vue";
+import ProductsEdit from "@/secure/products/ProductsEdit.vue";
+import Orders from "@/secure/orders/Orders.vue";
+import OrderItems from "@/secure/orders/OrderItems.vue";
+import Profile from "@/secure/profile/Profile.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('@/pages/Register.vue')
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/pages/Login.vue')
-  },
-  {
-    path: '/wrapper',
-    name: 'Wrapper',
-    children: [
-      {
-        path: '/',
-        name: 'Dashboard',
-        component: () => import('@/pages/Dashboard.vue')
-      },
-      {
-        path: '/users',
-        name: 'Users',
-        component: () => import('@/pages/users/Users.vue')
-      },
-      {
-        path: '/users/create',
-        name: 'UserCreate',
-        component: () => import('@/pages/users/UserCreate.vue')
-      },
-      {
-        path: '/users/:id/edit',
-        name: 'UserEdit',
-        component: () => import('@/pages/users/UserEdit.vue')
-      },
-      {
-        path: '/roles',
-        name: 'Roles',
-        component: () => import('@/pages/roles/Roles.vue')
-      },
-      {
-        path: '/roles/create',
-        name: 'RoleCreate',
-        component: () => import('@/pages/roles/RoleCreate.vue')
-      },
-      {
-        path: '/roles/:id/edit',
-        name: 'RoleEdit',
-        component: () => import('@/pages/roles/RoleEdit.vue')
-      },
-      {
-        path: '/products',
-        name: 'Products1',
-        component: () => import('@/pages/products/Products1.vue')
-      },
-      {
-        path: '/products/create',
-        name: 'ProductCreate',
-        component: () => import('@/pages/products/ProductCreate.vue')
-      },
-      {
-        path: '/products/:id/edit',
-        name: 'ProductEdit',
-        component: () => import('@/pages/products/ProductEdit.vue')
-      },
-      {
-        path: '/orders',
-        name: 'Orders',
-        component: () => import('@/pages/orders/Orders.vue')
-      },
-    ],
-    component: () => import('@/pages/Wrapper.vue')
-  },
+    {path: '/register', component: Register},
+    {path: '/login', component: Login},
+    {
+        path: '',
+        component: Secure,
+        children: [
+            {path: '', redirect: '/dashboard'},
+            {path: '/dashboard', component: Dashboard},
+            {path: '/profile', component: Profile},
+            {path: '/users', component: Users},
+            {path: '/users/create', component: UsersCreate},
+            {path: '/users/:id/edit', component: UsersEdit},
+            {path: '/roles', component: Roles},
+            {path: '/roles/create', component: RolesCreate},
+            {path: '/roles/:id/edit', component: RolesEdit},
+            {path: '/products', component: Products},
+            {path: '/products/create', component: ProductsCreate},
+            {path: '/products/:id/edit', component: ProductsEdit},
+            {path: '/orders', component: Orders},
+            {path: '/orders/:id', component: OrderItems},
+        ]
+    }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+    history: createWebHistory(process.env.BASE_URL),
+    routes
 })
 
 export default router
