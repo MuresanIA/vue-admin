@@ -31,8 +31,10 @@
 import { reactive, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import ImageUpload from "@/components/ImageUpload.vue";
 export default {
   name: "ProductCreate",
+  components: { ImageUpload },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const title = ref("");
