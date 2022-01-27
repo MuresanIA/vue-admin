@@ -9,6 +9,7 @@ import axios from "axios";
 export default {
   name: "ImageUpload",
   emits: ['file-uploaded'],
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup(_, context) {
     const upload = async (files) => {
       const file = files.item(0);
