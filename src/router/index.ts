@@ -60,6 +60,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'ProductCreate',
         component: () => import('@/pages/products/ProductCreate.vue')
       },
+      {
+        path: '/products/:id/edit',
+        name: 'ProductEdit',
+        component: () => import('@/pages/products/ProductEdit.vue')
+      },
+      {
+        path: '/orders',
+        name: 'Orders',
+        component: () => import('@/pages/orders/Orders.vue')
+      },
     ],
     component: () => import('@/pages/Wrapper.vue')
   },
