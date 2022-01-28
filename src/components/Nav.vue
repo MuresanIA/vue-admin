@@ -19,13 +19,20 @@
   </nav>
 </template>
 <script lang="ts">
-import { onMounted, ref } from "@vue/runtime-core";
+import { ref, computed, watch } from "@vue/runtime-core";
 import axios from "axios";
+import { useStore } from "vuex";
 export default {
   name: "Nav",
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const name = ref("");
+    const store = useStore();
+    const user = computed(() => store.state.user);
+
+    watch(user, () => {
+      name.value = user.value.first_name + " " + user.value.last_name;
+    });
 
     const logout = async () => {
       try {
@@ -34,10 +41,6 @@ export default {
         console.log(error);
       }
     };
-    onMounted(async () => {
-      const { data } = await axios.get("user", { withCredentials: true });
-      name.value = data.first_name + " " + data.last_name;
-    });
 
     return { name, logout };
   },

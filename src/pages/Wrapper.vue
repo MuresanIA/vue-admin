@@ -18,6 +18,7 @@ import Menu from "@/components/Menu.vue";
 import axios from "axios";
 import { onMounted } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   components: { Nav, Menu },
@@ -25,11 +26,12 @@ export default {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const router = useRouter();
+    const store = useStore();
 
     onMounted(async () => {
       try {
         const { data } = await axios.get("user", { withCredentials: true });
-        console.log(data);
+        await store.dispatch("setUser", data);
       } catch (error) {
         await router.push({ name: "Login" });
         console.log(error);

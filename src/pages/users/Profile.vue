@@ -55,8 +55,9 @@
 </template>
 
 <script lang="ts">
-import { reactive, onMounted } from "vue";
+import { reactive, computed, watch } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 export default {
   name: "Profile",
   setup() {
@@ -71,20 +72,20 @@ export default {
       password_confirm: "",
     });
 
-    onMounted(async () => {
-      try {
-        const { data } = await axios.get("user");
-        infoData.first_name = data.first_name;
-        infoData.last_name = data.last_name;
-        infoData.email = data.email;
-      } catch (e) {
-        console.log(e);
-      }
+    const store = useStore();
+    const user = computed(() => store.state.user);
+
+    watch(user, () => {
+      infoData.first_name = user.value.first_name;
+      infoData.last_name = user.value.last_name;
+      infoData.email = user.value.email;
     });
 
     const infoSubmit = async () => {
       try {
-        await axios.put("users/info", infoData);
+        const { data } = await axios.put("users/info", infoData);
+
+        await store.dispatch("setUser", data);
       } catch (e) {
         console.log(e);
       }
