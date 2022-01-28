@@ -38,8 +38,8 @@ export default {
 
         chart.load({
           columns: [
-            ["x", ...data.map((record: { date: any; }) => record.date)],
-            ["sales", ...data.map((record: { sum: any; }) => record.sum)],
+            ["x", ...data.map((record: { date: any }) => record.date)],
+            ["sales", ...data.map((record: { sum: any }) => record.sum)],
           ],
         });
       } catch (e) {
