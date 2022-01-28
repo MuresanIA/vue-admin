@@ -31,7 +31,7 @@ export default {
     onMounted(async () => {
       try {
         const { data } = await axios.get("user", { withCredentials: true });
-        await store.dispatch("setUser", data);
+        await store.dispatch("User/setUser", data);
       } catch (error) {
         await router.push({ name: "Login" });
         console.log(error);
