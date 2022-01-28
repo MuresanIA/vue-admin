@@ -1,4 +1,12 @@
 <template>
+  <div class="pt-3 pb-2 mb-3 border-bottom">
+    <a
+      href="javascript:void(0)"
+      @click="exportCSV"
+      class="btn btn-sm btn-outline-secondary"
+      >Export</a
+    >
+  </div>
   <div class="table-responsive">
     <table class="table table-sm">
       <thead>
@@ -29,7 +37,10 @@
           </tr>
           <tr>
             <td colspan="5">
-              <div class="overflow-hidden" :class="selected === order.id ? 'show' : 'hide'">
+              <div
+                class="overflow-hidden"
+                :class="selected === order.id ? 'show' : 'hide'"
+              >
                 <table class="table table-sm">
                   <thead>
                     <tr>
@@ -83,9 +94,26 @@ export default {
     const select = (id: number) =>
       (selected.value = selected.value !== id ? id : 0);
 
+    const exportCSV = async () => {
+      try {
+        const { data } = await axios.post(
+          "export",
+          {},
+          { responseType: "blob" }
+        );
+        const blob = new Blob([data], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(data);
+        link.download = "orders.csv";
+        link.click();
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     onMounted(load);
 
-    return { orders, lastPage, selected, load, select };
+    return { orders, lastPage, selected, load, select, exportCSV };
   },
 };
 </script>
