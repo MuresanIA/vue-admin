@@ -1,48 +1,66 @@
 <template>
-  <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <div class="btn-toolbar mb-2 mb-md-0" v-if="user.canEdit('orders')">
-      <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" @click="exportFile">Export</a>
-    </div>
-  </div> -->
-
   <div class="table-responsive">
-    <table class="table table-striped table-sm">
+    <table class="table table-sm">
       <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Total</th>
-        <th>Action</th>
-      </tr>
+        <tr>
+          <th>#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Total</th>
+          <th scope="col">Action</th>
+        </tr>
       </thead>
       <tbody>
-      <tr v-for="order in orders" :key="order.id">
-        <td>{{ order.id }}</td>
-        <td>{{ order.first_name }} {{ order.last_name }}</td>
-        <td>{{ order.email }}</td>
-        <td>{{ order.total }}</td>
-        <td>
-          <div class="btn-group mr-2">
-            <router-link :to="`/orders/${order.id}`" class="btn btn-sm btn-outline-secondary">View</router-link>
-          </div>
-        </td>
-      </tr>
+        <template v-for="order in orders" :key="order.id">
+          <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.email }}</td>
+            <td>{{ order.total }}</td>
+            <td>
+              <div class="btn-group mr-2">
+                <a class="btn btn-sm btn-outline-secondary">View</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <div>
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th scope="col">Product Title</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in order.order_items" :key="item.id">
+                      <td>{{ item.id }}</td>
+                      <td>{{ item.product_title }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.price }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
-
-  <Paginator :last-page="lastPage" @page-changed="load($event)"/>
+  <Paginator :lastPage="lastPage" @page-changed="load($event)" />
 </template>
 
-<script>
-import { onMounted, ref } from "@vue/runtime-core";
-import axios from "axios";
+<script lang="ts">
+import { ref, onMounted } from "vue";
 import Paginator from "@/components/Paginator.vue";
+import axios from "axios";
 export default {
-  components: { Paginator },
   name: "Orders",
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  components: { Paginator },
   setup() {
     const orders = ref([]);
     const lastPage = ref(0);
@@ -56,8 +74,13 @@ export default {
         console.log(e);
       }
     };
+
     onMounted(load);
+
     return { orders, lastPage, load };
   },
 };
 </script>
+
+<style>
+</style>
